@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import Logo from './../../public/logoColor.png';
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const mobileScreen = !useMediaQuery('sm');
+  const mobileScreen = useMediaQuery('sm');
 
   useEffect(() => {
     const updateNavBar = () => {
@@ -25,78 +27,54 @@ const NavBar = () => {
   const classes = {
     fixedContainer: `
       fixed
-      mt-9
-      w-full   
+      w-full
       z-50
       transition
       duration-500
-      bg-green-200
       shadow-sm
     `,
     nav: `
       flex
+      flex-row
       justify-around
-      m-auto 
-      items-center 
-      align-bottom 
-      py-4
-    `,
-    logoContainer: `
-      flex
       items-center
-      space-x-2
-      select-none
-      drag-none
+      mt-9
+      h-12
+      bg-green-200
     `,
-    productsButton: `
-      hidden  
-      sm:block
-      fixed
+    logo: `
       w-28
-      h-28
       rounded-full
-      py-1
-      px-2 
       font-semibold
-      transition
-      duration-200
-      bg-pink-200
-      shadow
+      bg-transparent
     `,
     linkList: `
-      flex 
-      lg:space-x-20 
-      space-x-7 
-      items-center
-      justify-between
+      flex
+      gap-8
     `,
   };
 
   return (
     <div className={classes.fixedContainer}>
       <nav className={classes.nav}>
-        <div className={classes.logoContainer}>
-          <div className="w-9">logo/inicio</div>
-        </div>
         <motion.button
-          className={classes.productsButton}
+          className={classes.logo}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0 }}
         >
-          Productos
+          <Image src={Logo} alt="" />
         </motion.button>
-        <div>
-          <ul className={classes.linkList}>
-            {!mobileScreen && (
-              <>
-                <li>Servicios</li>
-                <li>Plant Art</li>
-              </>
-            )}
-            {mobileScreen && <li>menú</li>}
-          </ul>
-        </div>
+        <ul className={classes.linkList}>
+          {mobileScreen && (
+            <>
+              <li>Productos</li>
+              <li>Servicios</li>
+              <li>Plant Art</li>
+            </>
+          )}
+          {!mobileScreen && <li>LinksPSPA</li>}
+        </ul>
       </nav>
     </div>
   );

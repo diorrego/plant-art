@@ -1,12 +1,13 @@
 import React from 'react';
 import NavBar from './NavBar';
+import Footer from './Footer';
 
 const Layout = ({ children }) => {
   return (
     <>
       <NavBar />
       {children}
-      <div className="h-screen">footer</div>
+      <Footer />
     </>
   );
 };
